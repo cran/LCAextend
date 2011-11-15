@@ -13,7 +13,7 @@ Description: This package performs a Latent Class Analysis of phenotypic measure
 Package: \tab LCAextend\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
-Date: \tab 2009-09-25\cr
+Date: \tab 2011-11-15\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -21,12 +21,12 @@ LazyLoad: \tab yes\cr
 }
 \author{
 Arafat TAYEB <arafat.tayeb@crulrg.ulaval.ca>, Alexandre BUREAU <alexandre.bureau@msp.ulaval.ca> and Aurelie Labbe <aurelie.labbe@mcgill.ca> \cr
-Maintainer: Arafat TAYEB <arafat.tayeb@crulrg.ulaval.ca>
+Maintainer: Alexandre BUREAU <alexandre.bureau@msp.ulaval.ca>
 }
-\references{TAYEB, A. et al.: Solving Genetic Heterogeneity in Extended
-  Families by Identifying Sub-types of Complex Diseases. Computational Statistics, 2011, DOI: 10.1007/s00180-010-0224-2, \cr
+\references{TAYEB, A. LABBE, A., BUREAU, A. and MERETTE, C. (2011) Solving Genetic Heterogeneity in Extended
+  Families by Identifying Sub-types of Complex Diseases. Computational Statistics, 26(3): 539-560. DOI: 10.1007/s00180-010-0224-2, \cr
   
-  LABBE, A., BUREAU, A. et MERETTE, C. (2009). Integration of Genetic Familial Dependence Structure in Latent Class Models. The International Journal of Biostatistics, 5(1): Article 6. 
+  LABBE, A., BUREAU, A. and MERETTE, C. (2009) Integration of Genetic Familial Dependence Structure in Latent Class Models. The International Journal of Biostatistics, 5(1): Article 6. 
 
 }
 \keyword{ package }

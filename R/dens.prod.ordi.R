@@ -11,7 +11,10 @@ function(y.x,param,var.list=NULL)
         S.alp <- ncol(param$alpha[[j]])-S.cov+1
 
         covar.x <- ifelse(S.cov==0,0,sum(param$alpha[[j]][k,S.alp:(S.alp+S.cov-1)]*x[var.list[[j]]]))
-        res[k] <- res[k]*p.compute(param$alpha[[j]][k,]+covar.x)[y[j]]
+# Version 1.1: correction d'erreurs qui donnaient une probabilité erronée avec 
+# des covariables: ajout du champ d'indices 1:(S.alp-1) et passage de covar.x comme
+# un argument supplémentaire à p.compute au lieu de l'additionner au vecteur alpha
+        res[k] <- res[k]*p.compute(param$alpha[[j]][k,1:(S.alp-1)],covar.x)[y[j]]
     }
     res
 }

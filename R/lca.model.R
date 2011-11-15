@@ -60,7 +60,7 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
     if(all(dad==0)&all(mom==0)) stop("it needs at least one child for computing p.trans\n")
     if(length(id)<ncol(y)) warning("not enough individuals to have invertible variance-covariance matrix\n")
 
-	if(any(status[!id%in%c(dad,mom)]!=2)) stop("all kept extreme child have to be affected")
+	if(any(status[!id%in%c(dad,mom)]!=2)) stop("All children without descendants must have a symptom status = 2")
 
     peel <- list()
     for(f in unique(fam))
@@ -126,10 +126,10 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
         {
             probs <- optim.probs(ped,probs,optim.probs.indic,res.weight,famdep)
 
-			y.aff <- as.matrix(y[status==2,])
+		y.aff <- as.matrix(y[status==2,])
             weight <- as.matrix(res.weight$w[,1,1:K])
 
-            param <- optim.param(y.aff,status,weight,param,x=NULL,var.list=NULL)
+            param <- optim.param(y.aff,status,weight,param,x=x,var.list=var.list)
 
             if(ll.new<ll)
             {

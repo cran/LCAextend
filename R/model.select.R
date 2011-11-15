@@ -74,15 +74,19 @@ function(ped,distribution,trans.const=TRUE,optim.param,optim.probs.indic=c(TRUE,
                 for(h in 1:H)
                 {
                     cat("model ",model,"test set ",h,"\n")
-                    res.estim <- try(lca.model(ped[fam%in%group.fam[,-h],],probs,param,optim.param,fit=TRUE,optim.probs.indic,tol,x[fam%in%group.fam[,-h]],var.list,
+				  # Jordie: correction d'une erreur: mettre "as.matrix(x[fam %in% group.fam[,h],])" au lieu de 
+				  # "x[fam %in% group.fam[,h]]" car x est une matrice.				  
+                    res.estim <- try(lca.model(ped[fam%in%group.fam[,-h],],probs,param,optim.param,fit=TRUE,optim.probs.indic,tol,as.matrix(x[fam%in%group.fam[,-h],]),var.list,
                                                 famdep,modify.init=NULL))
                     if(inherits(res.estim,"try-error"))
                     {
                         ll.valid.h[h] <- NA
-                        cat("there is a problem with cross estimation of set",h,"\n")
+                        cat("there is a problem with likelihood estimation in test set",h,"\n")
                     }
+				  # Jordie: correction d'une erreur: mettre "as.matrix(x[fam %in% group.fam[,h],])" au lieu de 
+				  # "x[fam %in% group.fam[,h]]" car x est une matrice.				  
                     else ll.valid.h[h] <- lca.model(ped[fam%in%group.fam[,h],],probs=res.estim$probs,param=res.estim$param,optim.param,fit=FALSE,
-                                                    optim.probs.indic,tol,x[fam%in%group.fam[,h]],var.list,famdep,modify.init=NULL)$ll
+                                                    optim.probs.indic,tol,as.matrix(x[fam%in%group.fam[,h],]),var.list,famdep,modify.init=NULL)$ll
                 }
                 ll.valid[which(K.vec==model)] <- H*mean(ll.valid.h,na.rm=TRUE)
             }

@@ -68,7 +68,7 @@ model.select(ped, distribution, trans.const = TRUE, optim.param,
   examined and show no symptoms (i.e. completely unaffected
   subjects). When applying the LCA to
   measurements available on all subjects, the status vector must take the
-  value of 2 for every individual with measurements.
+  value of 2 for every individual with measurements. If covariates are used, covariate values must be provided for subjects with symptom status 0 (missing) but not for subjects with symptom status 1 (if covariate values are provided, they will be ignored).
 
 
     \code{optim.param} is a variable indicating how the measurement
@@ -131,10 +131,10 @@ model.select(ped, distribution, trans.const = TRUE, optim.param,
     \code{BIC=-2*log(ll)+m*log(n)} of all candidate models, where \code{m} is the number of free parameters of 
   the model and \code{n} the total number of individuals. }
 }
-\references{ TAYEB, A. et al.: Solving Genetic Heterogeneity in Extended
-  Families by Identifying Sub-types of Complex Diseases. Computational Statistics, 2011, DOI: 10.1007/s00180-010-0224-2, \cr
+\references{ TAYEB, A. LABBE, A., BUREAU, A. and MERETTE, C. (2011) Solving Genetic Heterogeneity in Extended
+  Families by Identifying Sub-types of Complex Diseases. Computational Statistics, 26(3): 539-560. DOI: 10.1007/s00180-010-0224-2, \cr
   
-  LABBE, A., BUREAU, A. et MERETTE, C. (2009). Integration of Genetic Familial Dependence Structure in Latent Class Models. The International Journal of Biostatistics, 5(1): Article 6. }
+  LABBE, A., BUREAU, A. et MERETTE, C. (2009) Integration of Genetic Familial Dependence Structure in Latent Class Models. The International Journal of Biostatistics, 5(1): Article 6. }
 \seealso{ See also \code{\link{lca.model}}. }
 \examples{
 #data

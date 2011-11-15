@@ -32,16 +32,31 @@ function(y,status,weight,param,x=NULL,var.list=NULL)
 			w <- matrix(NA,nrow=sum(status==2),ncol=ncol(weight))
 
 			w[1:sum(status==2),] <- weight[status==2,]
+            # Version 1.1: section modifiée pour tenir compte des covariables.
 			if(sum(status==0)>0)
 			{
-				f.j.s.k <- t(apply(param$alpha[[j]],1,p.compute))
+			  if(length(miss.val)>0) alpha.j <- as.matrix(param$alpha[[j]][,-miss.val])
+			  else alpha.j <- param$alpha[[j]]
 
-
-				if(length(miss.val)>0) alpha.j <- as.matrix(param$alpha[[j]][,-miss.val])
-				else alpha.j <- param$alpha[[j]]
+			  if(!is.null(var.list[[j]]))
+			    {  
+			        S.cov <- length(var.list[[j]])
+                    S.alp <- ncol(param$alpha[[j]])-S.cov+1
+					
+                    covar.x <- ifelse(S.cov==0,0,sum(param$alpha[[j]][k,S.alp:(S.alp+S.cov-1)]*x[status=0,var.list[[j]]]))
+					# Boucle sur les sujets avec données manquantes
+					for (m in 1:sum(status==0))
+					{
+					f.j.s.k <- t(apply(alpha.j,1,p.compute,decal=covar.x[m]))
+					# On va chercher les poids du m^e sujet avec données manquantes
+					for(s in 1:S[j]) w <- rbind(w,as.matrix(weight[status==0,][m,])*f.j.s.k[,s])
+					}
+			    }
+			  else
+				{
 				f.j.s.k <- t(apply(alpha.j,1,p.compute))
-
 				for(s in 1:S[j]) w <- rbind(w,as.matrix(weight[status==0,])*f.j.s.k[,s])
+				}
 			}
 			if(is.null(var.list[[j]])) formula.lrm <- sympt~z
 			else formula.lrm <- eval(parse(text=paste(c("sympt~z",names(data.lrm)[var.list[[j]]]),collapse="+")))
@@ -57,7 +72,7 @@ function(y,status,weight,param,x=NULL,var.list=NULL)
 			if(S[j]>=3) alpha[[j]][,2:(S[j]-1)] <- matrix(alpha.vector[(ncol(weight)+1):(ncol(weight)+S[j]-2)],nrow=ncol(weight),ncol=S[j]-2,byrow=TRUE)
 			if(!is.null(var.list[[j]])) alpha[[j]][,S[j]:(S[j]+length(var.list[[j]])-1)] <- matrix(alpha.vector[(ncol(weight)+S[j]-1):length(alpha.vector)],
                                                                                                 nrow=ncol(weight),ncol=length(var.list[[j]]),byrow=TRUE)
-			#f there are jumps in y values, remplish alpha with 0
+			#f there are jumps in y values, remplace alpha with 0
 			if(length(miss.val)>0)
 			{
 				alpha.j <- matrix(NA,nrow=ncol(weight),ncol=max(y[,j])-1)

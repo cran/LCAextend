@@ -24,7 +24,7 @@ optim.const.ordi(y, status, weight, param, x = NULL, var.list = NULL)
 \details{
   the constraint on the parameters is that, for a symptom \code{j}, the rows \code{alpha[[j]][k,]} are equal for all classes \code{k} except the first values. 
   Therefore, maximum likelihood estimators are not explicit and the
-  function \code{lrm} of the package \code{Design} is used to perform a
+  function \code{lrm} of the package \code{rms} is used to perform a
   numerical optimization.
 }
 \value{

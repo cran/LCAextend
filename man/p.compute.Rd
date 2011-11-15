@@ -6,13 +6,14 @@
   computes the probability vector using cumulative logistic coefficients
 }
 \usage{
-p.compute(alpha)
+p.compute(alpha,decal)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{alpha}{ a vector of cumulative logistic coefficients, the first value can
     be \code{-Inf}, followed by, eventually, only one negative value, 
   then only positive values. It can end by \code{Inf} values.}
+  \item{decal}{ offset term to be applied to sums of logistic coefficients}
 }
 \details{
   If \code{alpha} has \code{S-1} values, \code{p.compute} returns \code{p} of length \code{S}. If \code{Y} is a random variable taking values in \code{\{1,...,S\}} with 

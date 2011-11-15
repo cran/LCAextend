@@ -116,7 +116,7 @@ x = NULL, var.list = NULL, famdep = TRUE, modify.init = NULL)
   \item{\code{optim.probs.indic[2]}}{ indicates whether \code{p.aff} will be
     estimated or not. }
   }
-  All defaults are \code{TRUE}.
+  All defaults are \code{TRUE}. If the dataset contains only nuclear families, there is no information to estimate p0connect and p.connect, and these parameters will not be estimated, irrespective of the indicator value.
 }
 \value{
   The function returns a list of 4 elements:
@@ -145,10 +145,10 @@ x = NULL, var.list = NULL, famdep = TRUE, modify.init = NULL)
   \item{ ll }{ the maximum log-likelihood value (log-ML) if \code{fit=TRUE} or the log-likelihood computed with the input values of \code{param} 
   and \code{probs} if \code{fit=FALSE}, } 
 }
-\references{ TAYEB et al.: Solving Genetic Heterogeneity in Extended
-  Families by Identifying Sub-types of Complex Diseases. Computational Statistics, 2011, DOI: 10.1007/s00180-010-0224-2, \cr
+\references{ TAYEB, A. LABBE, A., BUREAU, A. and MERETTE, C. (2011) Solving Genetic Heterogeneity in Extended
+  Families by Identifying Sub-types of Complex Diseases. Computational Statistics, 26(3): 539-560. DOI: 10.1007/s00180-010-0224-2, \cr
 
-  LABBE, A., BUREAU, A. et MERETTE, C. (2009). Integration of Genetic Familial Dependence Structure in Latent Class Models. The International Journal of Biostatistics, 5(1): Article 6. }
+  LABBE, A., BUREAU, A. et MERETTE, C. (2009) Integration of Genetic Familial Dependence Structure in Latent Class Models. The International Journal of Biostatistics, 5(1): Article 6. }
 
 \examples{
 #data

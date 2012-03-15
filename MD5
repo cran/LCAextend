@@ -1,4 +1,5 @@
-63925ceed0d9aa76c80e1483d0ccd27c *DESCRIPTION
+e9e33ae9038a08c2c7e4e79f7ab5ed37 *DESCRIPTION
+b87d7c2c949146dd70b78c614423a234 *NAMESPACE
 e66c1d02395f0afa53b931af5525bf64 *R/alpha.compute.R
 1fb3cda6db1116d629b2013a758f23b5 *R/attrib.dens.R
 68a7c1351d00c22e20a832547768cdc3 *R/dens.norm.R
@@ -9,7 +10,7 @@ c98f3ec8179828c28ba322a0fe74b1dc *R/downward.R
 d4d1c4b2e726416538fcd05db93de097 *R/init.norm.R
 1f70d5bf8bf0d7716ccc58f2369c512d *R/init.ordi.R
 9fd7f145590a0ca55493382e0f8e1c72 *R/init.p.trans.R
-446965133b12a57139f8ad0f4e09bbdd *R/lca.model.R
+f22c304ba76be4815903c373e09014ad *R/lca.model.R
 d972c2929a36dbc25768ec5465258e3a *R/model.select.R
 709a11777660a93b6809d2a4fede28b7 *R/n.param.R
 81e567d870457126ac0b922d79026427 *R/optim.const.ordi.R

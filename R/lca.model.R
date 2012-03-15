@@ -73,7 +73,8 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
 
         couple <- cbind(unique(dad.fam[dad.fam>0]),unique(mom.fam[mom.fam>0]))
         couple <- rbind(couple,cbind(couple[,2],couple[,1]))
-        depth <- pedigree(id.fam,dad.fam,mom.fam,sex.fam,status.fam)$depth
+        # Changement par rapport aux versions 1.1 et antérieur pour s'adapter au module kinship2
+        depth <- kindepth(id.fam,dad.fam,mom.fam,align=TRUE)
         generation <- max(depth)
         out <- NULL
         for(generat in 1:generation) out[generat] <- sum(depth==generat-1)/2

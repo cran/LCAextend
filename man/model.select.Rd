@@ -28,7 +28,7 @@ model.select(ped, distribution, trans.const = TRUE, optim.param,
   \code{ped[,4]} mom ID, \code{ped[,5]} sex, \code{ped[,6]} symptom
   status (2: symptomatic, 1: without symptoms, 0: missing), 
   \code{ped[,7:ncol(ped)]} measurements, each column corresponds to a
-  phenotypic measurement, }
+  phenotypic measurement. If the argument \code{distribution} is \code{"multinomial"}, then these columns must either be of type \code{integer} of \code{factor}, }
   \item{ distribution }{ a character variable taking the value \code{"normal"} for multivariate normal measurements and \code{"multinomial"} for ordinal or discrete 
   multinomial measurements, }
   \item{ trans.const }{ a logical variable indicating if the parental constraint is used. Parental constraint means that the class of a subject must be one 

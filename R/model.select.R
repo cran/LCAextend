@@ -12,7 +12,21 @@ function(ped,distribution,trans.const=TRUE,optim.param,optim.probs.indic=c(TRUE,
 	y <- as.matrix(ped[,-(1:6)])
 
     if(distribution=="normal") init.model <- init.norm
-    if(distribution=="multinomial") init.model <- init.ordi
+    if(distribution=="multinomial") 
+    {
+    	init.model <- init.ordi
+		for (j in 1:ncol(y))
+		{
+			if (!is.factor(y[,j]) & !is.integer(y[,j])) stop("Symptom ",j," must be of type integer or factor with multinomial distribution.")
+			my = min(y[,j],na.rm=T)
+			if (my<1) 
+			{
+			  # On doit modifier ped aussi car il est passe a la fonction e.step
+				ped[,6+j] = y[,j] = as.integer(y[,j] + 1 - my)
+				warning("Values of symptom ",j," shifted by ",1-my," to set the minimum to 1.")
+			}
+		}
+	}
 
     if((selec=="cross")&length(K.vec)>1)
     {

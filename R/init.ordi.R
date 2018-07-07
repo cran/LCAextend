@@ -1,15 +1,17 @@
 init.ordi <-
 function(y,K,x=NULL,var.list=NULL)
 {
-    if(nrow(y)<K) stop("there are a few individuals to perform a model with ",K," classes\n")
+    if(nrow(y)<K) stop("There are a too few individuals to fit a model with ",K," classes.\n")
     classes <- rep(1:K,each=nrow(y)/K)
     if(length(classes)<nrow(y)) classes[(length(classes)+1):nrow(y)] <- K
     alpha <- list()
     for(j in 1:ncol(y))
     {
-        level <- as.numeric(levels(factor(y[,j])))
-		level <- 1:max(level)
-
+#        level <- as.numeric(levels(factor(y[,j])))
+#		level <- 1:max(level)
+# Simplification
+		level <- 1:max(y[,j],na.rm=T)
+		
 		alpha[[j]] <- matrix(NA,nrow=K,ncol=length(level)-1)
         for(k in 1:K)
         {

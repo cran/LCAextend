@@ -32,8 +32,9 @@ function(y,status,weight,param,x=NULL,var.list=NULL)
 			w <- matrix(NA,nrow=sum(status==2),ncol=ncol(weight))
 
 			w[1:sum(status==2),] <- weight[status==2,]
-            # Version 1.1: section modifiée pour tenir compte des covariables.
-			if(sum(status==0)>0)
+            # Version 1.1: section modifi?e pour tenir compte des covariables.
+			nm = sum(status==0)
+			if(nm>0)
 			{
 			  if(length(miss.val)>0) alpha.j <- as.matrix(param$alpha[[j]][,-miss.val])
 			  else alpha.j <- param$alpha[[j]]
@@ -43,13 +44,16 @@ function(y,status,weight,param,x=NULL,var.list=NULL)
 			        S.cov <- length(var.list[[j]])
                     S.alp <- ncol(param$alpha[[j]])-S.cov+1
 					
-                    covar.x <- ifelse(S.cov==0,0,sum(param$alpha[[j]][k,S.alp:(S.alp+S.cov-1)]*x[status=0,var.list[[j]]]))
-					# Boucle sur les sujets avec données manquantes
-					for (m in 1:sum(status==0))
+                    if(S.cov==0)
+                      covar.x <- matrix(0,nrow(alpha.j),nm)
+                    else covar.x <- x[status=0,var.list[[j]]]%*%t(param$alpha[[j]][,S.alp:(S.alp+S.cov-1)])
+					# Boucle sur les sujets avec donn?es manquantes
+					for (m in 1:nm)
 					{
-					f.j.s.k <- t(apply(alpha.j,1,p.compute,decal=covar.x[m]))
-					# On va chercher les poids du m^e sujet avec données manquantes
-					for(s in 1:S[j]) w <- rbind(w,as.matrix(weight[status==0,][m,])*f.j.s.k[,s])
+					  f.j.s.k = matrix(NA,nrow(alpha.j),S[j])
+					  for (k in 1:nrow(alpha.j)) f.j.s.k[k,] <- p.compute(alpha.j[k,],decal=covar.x[m,k])
+					  # On va chercher les poids du m^e sujet avec donn?es manquantes
+					  for(s in 1:S[j]) w <- rbind(w,as.matrix(weight[status==0,][m,])*f.j.s.k[,s])
 					}
 			    }
 			  else

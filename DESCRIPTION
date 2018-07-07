@@ -1,20 +1,21 @@
 Package: LCAextend
 Type: Package
-Title: Latent Class Analysis (LCA) with familial dependence in extended
-        pedigrees
-Version: 1.2
-Date: 2012-03-15
+Title: Latent Class Analysis (LCA) with Familial Dependence in Extended
+        Pedigrees
+Version: 1.3
+Date: 2018-07-05
 Author: Arafat TAYEB <arafat.tayeb@ircm.qc.ca>, Alexandre BUREAU
         <alexandre.bureau@msp.ulaval.ca> and Aurelie Labbe
         <aurelie.labbe@mcgill.ca>
 Maintainer: Alexandre BUREAU <alexandre.bureau@msp.ulaval.ca>
-Depends: boot, mvtnorm, rms, kinship2
-Description: This package performs a Latent Class Analysis of
-        phenotypic measurements in pedigrees and a model selection
+Depends: R (>= 2.1.0)
+Imports: boot, mvtnorm, rms, kinship2
+Description: Latent Class Analysis of
+        phenotypic measurements in pedigrees and model selection
         based on one of two methods: likelihood-based cross-validation
-        and Bayesian Information Criterion. It computes also individual
-        and triplet child-parents weights in a pedigree using an
-        upward-downward algorithm. It takes into account the familial
+        and Bayesian Information Criterion. Computation of individual
+        and triplet child-parents weights in a pedigree is performed using an
+        upward-downward algorithm. The model takes into account the familial
         dependence defined by the pedigree structure by considering
         that a class of a child depends on his parents classes via
         triplet-transition probabilities of the classes. The package
@@ -25,8 +26,8 @@ Description: This package performs a Latent Class Analysis of
         implemented. The package can deal with missing data.
 License: GPL
 LazyLoad: yes
-URL: http://www.r-project.org,
-        http://www.crulrg.ulaval.ca/pages_perso_chercheurs/bureau_a/
-Packaged: 2012-03-17 22:13:00 UTC; bura0001
+URL: https://CRAN.R-project.org/package=LCAextend
 Repository: CRAN
-Date/Publication: 2012-03-18 16:07:12
+NeedsCompilation: no
+Packaged: 2018-07-06 19:14:03 UTC; alexandrebureau
+Date/Publication: 2018-07-07 15:40:21 UTC

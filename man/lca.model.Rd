@@ -24,10 +24,10 @@ x = NULL, var.list = NULL, famdep = TRUE, modify.init = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{ ped }{ a matrix representing pedigrees and measurements: \code{ped[,1]} family ID, \code{ped[,2]} subjects ID, \code{ped[,3]} dad ID, 
+  \item{ ped }{ a matrix or data frame representing pedigrees and measurements: \code{ped[,1]} family ID, \code{ped[,2]} subjects ID, \code{ped[,3]} dad ID, 
   \code{ped[,4]} mom ID, \code{ped[,5]} sex, \code{ped[,6]} symptom
   status (2: symptomatic, 1: without symptoms, 0: missing), 
-  \code{ped[,7:ncol(ped)]} measurements, each column corresponds to a phenotypic measurement, }
+  \code{ped[,7:ncol(ped)]} measurements, each column corresponds to a phenotypic measurement. If the measurement distribution specified with \code{optim.param} is multinomial, then these columns must either be of type \code{integer} of \code{factor},  }
   \item{ probs }{ a list of initial probability parameters (see below
     for more details). The function \code{\link{init.p.trans}} can be
     used to compute an initial value  

@@ -11,3 +11,4 @@ import(
   rms,
   kinship2
 )
+importFrom("stats", "coef", "cutree", "dist", "dnorm", "hclust", "var")

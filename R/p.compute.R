@@ -1,5 +1,6 @@
-# Modification version 1.1: ajout du terme de décalage pour les covariables
-# comme argument supplémentaire optionnel
+# Modification version 1.1: ajout du terme de decalage pour les covariables
+# comme argument supplementaire optionnel
+# Version 1.3: Correction d'une erreur avec ce terme de decalage 
 p.compute <-
 function(alpha,decal=0)
 {

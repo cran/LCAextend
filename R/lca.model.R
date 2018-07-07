@@ -12,7 +12,30 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
 
     K <- length(probs$p)
 
-	if(famdep==TRUE&(is.null(probs$p)|is.null(probs$p0)|is.null(probs$p.trans))) stop("one component of probs is missing, case familial dependence")
+	if(famdep==TRUE&(is.null(probs$p)|is.null(probs$p0)|is.null(probs$p.trans))) stop("One component of probs is missing for the familial dependence case.")
+	
+	optim.param <- attrib.dens(optim.param)
+	if(is.null(attr(optim.param,"type"))) stop("Function optim.param must have an attribute of name \'type\'.")
+	else
+	{
+		if(attr(optim.param,"type")=="norm") dens <- dens.norm
+		if(attr(optim.param,"type")=="ordi") 
+		{
+			dens <- dens.prod.ordi
+			for (j in 1:ncol(y))
+			{
+				if (!is.factor(y[,j]) & !is.integer(y[,j])) stop("Symptom ",j," must be of type integer or factor with multinomial distribution.")
+				my = min(y[,j],na.rm=T)
+				if (my<1) 
+				{
+				  # On doit modifier ped aussi car il est passe a la fonction e.step
+				  ped[,6+j]	= y[,j] = as.integer(y[,j] + 1 - my)
+					warning("Values of symptom ",j," shifted by ",1-my," to set the minimum to 1.")
+				}
+			}
+		}
+			
+	}
 	
 	if(famdep==TRUE&is.null(probs$p.found))
 	{
@@ -73,7 +96,7 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
 
         couple <- cbind(unique(dad.fam[dad.fam>0]),unique(mom.fam[mom.fam>0]))
         couple <- rbind(couple,cbind(couple[,2],couple[,1]))
-        # Changement par rapport aux versions 1.1 et antérieur pour s'adapter au module kinship2
+        # Changement par rapport aux versions 1.1 et ant?rieur pour s'adapter au module kinship2
         depth <- kindepth(id.fam,dad.fam,mom.fam,align=TRUE)
         generation <- max(depth)
         out <- NULL
@@ -89,12 +112,13 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
     }
     cat("CHECK OF ALL PEDIGREES DONE\n")
 
-    if(any(probs$p<0)|abs(sum(probs$p)-1)>.Machine$double.eps) stop("there is a problem with the initail value of founder calss probability p.\n")
+    if(any(probs$p<0)|abs(sum(probs$p)-1)>.Machine$double.eps) stop("There is a problem with the initial value of founder class probability p.\n")
     if(famdep) if(any(probs$p.trans<0)|any(abs(apply(array(probs$p.trans[,,1:K],dim=rep(K,times=3)),2:3,sum)-1)>.Machine$double.eps)|
        any(abs(apply(matrix(probs$p.trans[,1:K,K+1],nrow=K,ncol=K),2,sum)-1)>.Machine$double.eps))
-    stop("there is a problem with the initail value of transition probability p.trans.\n")
+    stop("There is a problem with the initial value of transition probability p.trans.\n")
 
-	y.x.aff <- as.matrix(y[status==2,])
+	y.aff <- as.matrix(y[status==2,])
+	y.x.aff = y.aff
     if(!is.null(x)) y.x.aff <- cbind(y.x.aff,as.matrix(x[status==2,]))
 
     fyc <- matrix(1,nrow=length(id),ncol=K+1)
@@ -127,7 +151,6 @@ function(ped,probs,param,optim.param,fit=TRUE,optim.probs.indic=c(TRUE,TRUE,TRUE
         {
             probs <- optim.probs(ped,probs,optim.probs.indic,res.weight,famdep)
 
-		y.aff <- as.matrix(y[status==2,])
             weight <- as.matrix(res.weight$w[,1,1:K])
 
             param <- optim.param(y.aff,status,weight,param,x=x,var.list=var.list)
